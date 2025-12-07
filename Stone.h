@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <array> // U¿yjemy std::array zamiast std::vector
 
@@ -8,7 +9,7 @@ private:
 	bool m_jestZniszczony; //(Flaga okreœlaj¹ca, czy blok zosta³ zniszczony);
 	static const std::array<sf::Color, 4> m_colorLUT;
 public:
-	Stone(sf::Vector2f startPos, sf::Vector2f rozmiar, int L);
+	Stone(sf::Vector2f startPos, sf::Vector2f rozmiar, int L);//Schemat konstruktora, w jaki sposób ma powstaæ
 	//L = hp
 	void trafienie() {
 		if (m_jestZniszczony == true) {
@@ -44,11 +45,3 @@ public:
 	};
 
 };
-Stone::Stone(sf::Vector2f PozycjaStartowa, sf::Vector2f Rozmiar, int L) {
-	m_Hp = L;
-	m_jestZniszczony = false;
-	this->setPosition(PozycjaStartowa);
-	this->setSize(Rozmiar);
-	setOutlineThickness(2.f);
-	aktualizujKolor();
-}
