@@ -16,5 +16,5 @@ public:
     Game();
 
     void update(sf::Time dt);
-    void render(sf::RenderTarget& target);
+    bool render(sf::RenderTarget& target);
 };

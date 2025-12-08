@@ -42,6 +42,9 @@ int main()
 
         window.clear(sf::Color(20, 20, 30));
         game.render(window);
+        if (!game.render(window)) {   // jeśli render zwróci false → koniec gry
+            window.close();
+        }
         window.display();
     }
 

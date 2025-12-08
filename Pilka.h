@@ -24,17 +24,18 @@ public:
         if ((x - radius <= 0) || (x + radius >= szerokosc)) {
             odbijX();
         }
-        if ((y - radius <= 0) || (y + radius >= wysokosc)) {
+        if (y - radius <= 0) { //zmienione na brak kolizji z podloga  (y + radius >= wysokosc)
             odbijY();
+        }
+        if (y + radius >= wysokosc) {
+            return;
         }
     }
     bool collidePaddle(const Paletka& Pal) {
-        if (x > Pal.getX() - Pal.getSzerokosc() &&
-            (x < Pal.getX() + Pal.getSzerokosc()) &&
-            (y + radius >= Pal.getY() - Pal.getWysokosc() / 2) &&
-            (y - radius < Pal.getY() - Pal.getWysokosc() / 2)) {
+        if (x > Pal.getX() - Pal.getSzerokosc() &&(x < Pal.getX() + Pal.getSzerokosc()) &&
+           (y + radius >= Pal.getY() - Pal.getWysokosc() / 2) &&(y - radius < Pal.getY() - Pal.getWysokosc() / 2)) {
 
-            vy = -std::abs(vy);
+            odbijY();
             y = (Pal.getY() - Pal.getWysokosc() / 2) - radius;
             ksztalt_kauczuka.setPosition(x, y);
             return true;

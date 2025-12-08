@@ -53,11 +53,16 @@ void Game::update(sf::Time dt)
     }
 }
 
-void Game::render(sf::RenderTarget& target)
+bool Game::render(sf::RenderTarget& target)
 {
     for (auto& panele : bloki)
         panele.Narysuj(target);
 
     Kauczuk.Narysuj(target);
     pal.Narysuj(target);
+    if (Kauczuk.getY() - Kauczuk.getRadius() > 480) {
+        std::cout << "MISS! KONIEC GRY\n";                  //jak jest ponizej progu to daje komunikat
+        return false;
+    }
+    return true;
 }
