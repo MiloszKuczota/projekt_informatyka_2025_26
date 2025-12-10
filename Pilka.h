@@ -66,6 +66,13 @@ public:
         y = y + vy;
     }
     //funkcje pobierajace dane
+    sf::Vector2f getPosition() const {//te 2 dodane na nowo xddddddddd
+        return sf::Vector2f(x, y);
+    }
+
+    sf::Vector2f getVelocity() const {
+        return sf::Vector2f(vx, vy);
+    }
 
 private:
     float x, y, vx, vy, radius;

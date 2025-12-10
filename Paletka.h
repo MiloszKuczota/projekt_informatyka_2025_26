@@ -37,4 +37,12 @@ public:
     float getY() const { return y; };
     float getSzerokosc() const { return szerokosc; };
     float getWysokosc() const { return wysokosc; };
+
+    sf::Vector2f getPosition() const {//tutaj ponizej dodane na nowo
+        return ksztalt_paletki.getPosition();
+    }
+
+    sf::Vector2f getSize() const {
+        return ksztalt_paletki.getSize();
+    }
 };

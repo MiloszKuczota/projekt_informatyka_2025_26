@@ -28,6 +28,18 @@ Game::Game() :
 
 void Game::update(sf::Time dt)
 {
+    if (Kauczuk.getY() - Kauczuk.getRadius() > 480)
+    {
+        gameOver = true;
+        return;
+    }
+
+    if (gameOver)
+        return;
+
+    if (Kauczuk.getY() - Kauczuk.getRadius() > 480)
+        gameOver = true;
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         pal.RuchWLewo();
 
@@ -53,16 +65,11 @@ void Game::update(sf::Time dt)
     }
 }
 
-bool Game::render(sf::RenderTarget& target)
+void Game::render(sf::RenderTarget& target)
 {
-    for (auto& panele : bloki)
-        panele.Narysuj(target);
+    for (auto& b : bloki)
+        b.Narysuj(target);
 
     Kauczuk.Narysuj(target);
     pal.Narysuj(target);
-    if (Kauczuk.getY() - Kauczuk.getRadius() > 480) {
-        std::cout << "MISS! KONIEC GRY\n";                  //jak jest ponizej progu to daje komunikat
-        return false;
-    }
-    return true;
 }

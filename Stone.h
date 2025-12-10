@@ -43,5 +43,12 @@ public:
 
 		this->setFillColor(m_colorLUT[idx]);
 	};
+	sf::Vector2f getPosition() const {//tez 2 dodane
+		return sf::RectangleShape::getPosition();
+	}
+
+	sf::Vector2f getSize() const {
+		return sf::RectangleShape::getSize();
+	}
 
 };

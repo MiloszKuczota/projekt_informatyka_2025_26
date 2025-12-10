@@ -1,50 +1,93 @@
-﻿#include <iostream>
-#include <SFML/Graphics.hpp>
-#include"Pilka.h"
-#include"Paletka.h"
-#include"Stone.h"
-#include"Game.h"
-#include"Menu.h"
+﻿#include <SFML/Graphics.hpp>
+#include "Menu.h"
+#include "Game.h"
 
-using namespace std;
-
-enum class GameState { Menu, Playing, Scores, Exiting }; //może przyjmować tylko jedną z czterech nazwanych wartości
+enum class GameState { Menu, Playing, Scores, Exiting };
 
 int main()
 {
-
-    // Tworzymy główne okno
     sf::RenderWindow window(sf::VideoMode(640, 480), "Arkanoid");
     window.setFramerateLimit(120);
 
-    // Tworzymy instancje potrzebnych klas
-    Game game; // Załaduje bloki, paletkę itp.
+    // Obiekty
     Menu menu(window.getSize().x, window.getSize().y);
+    Game game;
 
-    GameState currentState = GameState::Menu;
+    GameState state = GameState::Menu;
 
     sf::Clock clock;
 
     while (window.isOpen())
     {
         sf::Event event;
+
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (state == GameState::Menu)               //menu
+            {
+                if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::Up)
+                        menu.moveUp();  
+                    else if (event.key.code == sf::Keyboard::Down)
+                        menu.moveDown();
+                    else if (event.key.code == sf::Keyboard::Enter)
+                    {
+                        if (menu.getSelectedItem() == 0)       // NOWA GRA
+                        {
+                            game = Game();                      // restart gry
+                            state = GameState::Playing;
+                        }
+                        else if (menu.getSelectedItem() == 1)  // WYJŚCIE
+                        {
+                            window.close();
+                        }
+                    }
+                }
+            }
+
+            // --------------------
+            // OBSŁUGA GRY
+            // --------------------
+            else if (state == GameState::Playing)
+            {
+                if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::Escape)
+                    {
+                        state = GameState::Menu;
+                    }
+                }
+            }
         }
-
-
 
         sf::Time dt = clock.restart();
 
-        game.update(dt);
+        // --------------------
+        // UPDATE
+        // --------------------
+        if (state == GameState::Playing)
+        {
+            game.update(dt);
 
-        window.clear(sf::Color(20, 20, 30));
-        game.render(window);
-        if (!game.render(window)) {   // jeśli render zwróci false → koniec gry
-            window.close();
+            if (game.isGameOver())
+            {
+                state = GameState::Menu;     // po przegranej → powrót do menu
+            }
         }
+
+        // --------------------
+        // RENDER
+        // --------------------
+        window.clear(sf::Color(20, 20, 30));
+
+        if (state == GameState::Menu)
+            menu.draw(window);
+        else if (state == GameState::Playing)
+            game.render(window);
+
         window.display();
     }
 

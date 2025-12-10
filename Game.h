@@ -16,5 +16,8 @@ public:
     Game();
 
     void update(sf::Time dt);
-    bool render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target);
+    bool gameOver = false;
+    bool isGameOver() const { return gameOver; } // <-- DODANE
+
 };
