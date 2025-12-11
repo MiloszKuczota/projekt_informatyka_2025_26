@@ -27,14 +27,14 @@ bool Zapis::saveToFile(const std::string& filename) {
     if (!file.is_open())
         return false;
     // Zapis Paletki
-    file << paddlePosition.x << " " << paddlePosition.y << endl;
+    file << paddlePosition.x << " " << paddlePosition.y << std::endl;
     // Zapis Pi³ki
-    file << ballPosition.x << " " << ballPosition.y << " " << ballVelocity.x << " " << ballVelocity.y << endl;
+    file << ballPosition.x << " " << ballPosition.y << " " << ballVelocity.x << " " << ballVelocity.y << std::endl;
     // Zapis liczby bloków
-    file << blocks.size() << endl;
+    file << blocks.size() << std::endl;
     // Zapis bloków
     for (const auto& block : blocks) {
-        file << block.x << " " << block.y << " " << block.hp << endl;
+        file << block.x << " " << block.y << " " << block.hp << std::endl;
     }
     file.close();
     return true;
