@@ -132,14 +132,13 @@
   <ItemGroup>
     <ClCompile Include="ArkanoidSFML.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Paletka.cpp" />
     <ClCompile Include="Pilka.cpp" />
     <ClCompile Include="Stone.cpp" />
+    <ClCompile Include="Zapis.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameState.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Paletka.h" />
     <ClInclude Include="Pilka.h" />

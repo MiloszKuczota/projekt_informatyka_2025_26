@@ -1,9 +1,10 @@
 ﻿#include <SFML/Graphics.hpp>
 #include "Menu.h"
 #include "Game.h"
+#include "Zapis.h" //gamestate.h - musi być zmiana nazwy
 
-enum class GameState { Menu, Playing, Scores, Exiting };
-
+enum class GameState{ Menu, Playing, Scores, Exiting };
+bool f5PressedLastFrame = false; //Dodane, żeby dla pojedynczego kliknięcia zapisało raz, a nie kilka
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(640, 480), "Arkanoid");
@@ -60,27 +61,35 @@ int main()
                         state = GameState::Menu;
                     }
                 }
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
+                    if (!f5PressedLastFrame) {
+                        // zapis
+                        Zapis snapshot;
+                        snapshot.capture(game.getPaddle(), game.getBall(), game.getStones());
+                        if (snapshot.saveToFile("zapis.txt"))
+                            std::cout << "Gra zapisana" << std::endl;
+
+                        f5PressedLastFrame = true;
+                    }
+                    f5PressedLastFrame = false;
+                }
             }
         }
 
         sf::Time dt = clock.restart();
 
-        // --------------------
-        // UPDATE
-        // --------------------
+        // aktualizacja gry
         if (state == GameState::Playing)
         {
             game.update(dt);
 
             if (game.isGameOver())
             {
-                state = GameState::Menu;     // po przegranej → powrót do menu
+                state = GameState::Menu;     // po przegranej powrót do menu
             }
         }
 
-        // --------------------
-        // RENDER
-        // --------------------
+        // renderowanie się gry
         window.clear(sf::Color(20, 20, 30));
 
         if (state == GameState::Menu)
