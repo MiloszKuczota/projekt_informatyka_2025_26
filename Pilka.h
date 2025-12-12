@@ -52,7 +52,7 @@ public:
     //stare
     void drukuj() {
         cout << "x= " << getX() << " y= " << getY() << " vx= " << getVX() << " vy= " << getVY() << endl;
-    }
+    }// stara funkcja ktora nie jest uzywana
     sf::FloatRect PolozeniePilki() const {
         return ksztalt_kauczuka.getGlobalBounds();  //zwraca po³o¿enie pi³ki jako kwadrat - przydatne do sprawdzania kolizji
     }
@@ -72,6 +72,17 @@ public:
 
     sf::Vector2f getVelocity() const {
         return sf::Vector2f(vx, vy);
+    }
+    void reset(const sf::Vector2f& pos, const sf::Vector2f& vel)
+    {
+        // ustawiamy pozycjê pi³ki
+        x = pos.x;
+        y = pos.y;
+        ksztalt_kauczuka.setPosition(pos);
+
+        // ustawiamy prêdkoœæ
+        vx = vel.x;
+        vy = vel.y;
     }
 
 private:

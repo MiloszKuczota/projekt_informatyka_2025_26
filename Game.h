@@ -23,4 +23,8 @@ public:
     const Pilka& getBall() const { return Kauczuk; }
     const std::vector<Stone>& getStones() const { return bloki; }
 
+    Paletka& getPaddleRef() { return pal; }
+    Pilka& getBallRef() { return Kauczuk; }
+    std::vector<Stone>& getStonesRef() { return bloki; }
+
 };

@@ -36,12 +36,28 @@ int main()
                         menu.moveDown();
                     else if (event.key.code == sf::Keyboard::Enter)
                     {
-                        if (menu.getSelectedItem() == 0)       // NOWA GRA
+                        if (menu.getSelectedItem() == 0)       //nowa gra
                         {
                             game = Game();                      // restart gry
                             state = GameState::Playing;
                         }
-                        else if (menu.getSelectedItem() == 1)  // WYJŚCIE
+                        else if (menu.getSelectedItem() == 1)  // WCZYTAJ 
+                        {
+                            Zapis snapshot;
+
+                            if (snapshot.loadFromFile("zapis.txt"))
+                            {
+                                snapshot.apply(game.getPaddleRef(),game.getBallRef(),game.getStonesRef()); //wykorzystyuje się gettery z klasy game
+
+                                std::cout << "Gra wczytana!\n";
+                                state = GameState::Playing;
+                            }
+                            else
+                            {
+                                std::cout << "Blad wczytywania gry!\n";
+                            }
+                        }
+                        else if (menu.getSelectedItem() == 2)  // WYJŚCIE
                         {
                             window.close();
                         }
@@ -49,9 +65,8 @@ int main()
                 }
             }
 
-            // --------------------
+
             // OBSŁUGA GRY
-            // --------------------
             else if (state == GameState::Playing)
             {
                 if (event.type == sf::Event::KeyPressed)
@@ -71,6 +86,9 @@ int main()
 
                         f5PressedLastFrame = true;
                     }
+                }
+                if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F5)
+                {
                     f5PressedLastFrame = false;
                 }
             }

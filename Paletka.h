@@ -45,4 +45,9 @@ public:
     sf::Vector2f getSize() const {
         return ksztalt_paletki.getSize();
     }
+    void setPosition(const sf::Vector2f& pos) {
+        x = pos.x;
+        y = pos.y;
+        ksztalt_paletki.setPosition(pos);
+    }
 };
