@@ -48,17 +48,16 @@ bool Zapis::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) return false;
 
-    std::string label;
 
     // 1. Wczytanie paletki
-    if (!(file >> label >> paddlePosition.x >> paddlePosition.y)) return false;
+    if (!(file  >> paddlePosition.x >> paddlePosition.y)) return false;
 
     // 2. Pi³ki
-    if (!(file >> label >> ballPosition.x >> ballPosition.y >> ballVelocity.x >> ballVelocity.y)) return false;
+    if (!(file >> ballPosition.x >> ballPosition.y >> ballVelocity.x >> ballVelocity.y)) return false;
 
     // 3. Wczytanie liczby bloków
     int blocksCount;
-    if (!(file >> label >> blocksCount)) return false;
+    if (!(file >> blocksCount)) return false;
 
     blocks.clear();
     for (int i = 0; i < blocksCount; ++i) {
