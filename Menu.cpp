@@ -11,7 +11,7 @@ Menu::Menu(float width, float height)
     }
 
     // DODAJEMY POZYCJE MENU
-    items.resize(2);
+    items.resize(3);
 
     items[0].setFont(font);
     items[0].setFillColor(sf::Color::Red);      // wybrane
@@ -24,6 +24,12 @@ Menu::Menu(float width, float height)
     items[1].setString("Wyjscie");
     items[1].setCharacterSize(40);
     items[1].setPosition({ width / 2.f - 100.f, height / 2.f + 10.f });
+
+    items[2].setFont(font);
+    items[2].setFillColor(sf::Color::White);    // nie wybrane
+    items[2].setString("Wczytaj gre");
+    items[2].setCharacterSize(40);
+    items[2].setPosition({ width / 2.f - 100.f, height / 2.f + 60.f });
 }
 
 void Menu::draw(sf::RenderWindow& window)

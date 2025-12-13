@@ -4,7 +4,7 @@
 #include "Zapis.h" //gamestate.h - musi być zmiana nazwy
 
 enum class GameState{ Menu, Playing, Scores, Exiting };
-bool f5PressedLastFrame = false; //Dodane, żeby dla pojedynczego kliknięcia zapisało raz, a nie kilka
+bool wcisnieteF5 = false; //Dodane, żeby dla pojedynczego kliknięcia zapisało raz, a nie kilka
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(640, 480), "Arkanoid");
@@ -77,19 +77,19 @@ int main()
                     }
                 }
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
-                    if (!f5PressedLastFrame) {
+                    if (!wcisnieteF5) {
                         // zapis
                         Zapis snapshot;
                         snapshot.capture(game.getPaddle(), game.getBall(), game.getStones());
                         if (snapshot.saveToFile("zapis.txt"))
                             std::cout << "Gra zapisana" << std::endl;
 
-                        f5PressedLastFrame = true;
+                        wcisnieteF5 = true;
                     }
                 }
                 if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F5)
                 {
-                    f5PressedLastFrame = false;
+                    wcisnieteF5 = false;
                 }
             }
         }

@@ -2,15 +2,17 @@
 #include <iostream>
 #include <string>
 
+
+
 void Zapis::capture(const Paletka& pad,const Pilka& ball, const std::vector<Stone>& stones){
-    // Zapisujemy pozycjê paletki
+    // Zapis pozycji paletki
     paddlePosition = pad.getPosition();
 
-    // Zapisujemy pozycjê i prêdkoœæ pi³ki
+    // Zapisuj pozycji i prêdkoœci pi³ki
     ballPosition = ball.getPosition();
-    ballVelocity = ball.getVelocity();   // jeœli jeszcze nie masz getVelocity(), trzeba dodaæ
+    ballVelocity = ball.getVelocity();
 
-    // Zapisujemy bloki
+    // Zapisuj bloki
     blocks.clear();
     blocks.reserve(stones.size());
 
@@ -19,7 +21,7 @@ void Zapis::capture(const Paletka& pad,const Pilka& ball, const std::vector<Ston
         BlockData data;
         data.x = block.getPosition().x;
         data.y = block.getPosition().y;
-        data.hp = block.getHP();             // MUSISZ dodaæ w Stone: int getHP() const;
+        data.hp = block.getHP();     
         blocks.push_back(data);
     }
 }
@@ -27,6 +29,7 @@ bool Zapis::saveToFile(const std::string& filename) {
     std::ofstream file(filename);
     if (!file.is_open())
         return false;
+
     // Zapis Paletki
     file << paddlePosition.x << " " << paddlePosition.y << std::endl;
     // Zapis Pi³ki
@@ -70,13 +73,13 @@ bool Zapis::loadFromFile(const std::string& filename) {
 }
 
 void Zapis::apply(Paletka& pad, Pilka& ball, std::vector<Stone>& stones) {
-    // Ustaw paletkê
+    // Ustawienie paletki
     pad.setPosition(paddlePosition);
 
-    // Ustaw pi³kê
+    // Ustawienie pi³ki
     ball.reset(ballPosition, ballVelocity);
 
-    // Odtwórz bloki
+    // Odtworzenie bloki
     stones.clear();
     sf::Vector2f size(105.f, 25.f); //wyliczone z game.cpp, uzyto po prostu sta³ych
     for (const auto& data : blocks) {
